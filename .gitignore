@@ -12,15 +12,11 @@ out
 *.iws
 *.iml
 .idea
-classes
-gradle/wrapper
 
 # gradle
 build
 .gradle
-gradle.properties
 
 # other
 eclipse
 run
-libs
