@@ -46,7 +46,7 @@ public class ItemBackpack extends Item implements IGUIOpenable
         super();
         this.backpackType = type;
         this.setRegistryName(VSBRegistryNames.asLocation(name));
-        this.setUnlocalizedName(this.getRegistryName().toString().replace(':', '.'));
+        this.setTranslationKey(this.getRegistryName().toString().replace(':', '.'));
         this.setMaxStackSize(1);
         this.setHasSubtypes(true);
         this.setCreativeTab(VSBCreativeTabs.TAB_VSB);

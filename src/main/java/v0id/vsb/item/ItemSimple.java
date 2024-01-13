@@ -15,7 +15,7 @@ public class ItemSimple extends Item
     {
         super();
         this.setRegistryName(VSBRegistryNames.asLocation(name));
-        this.setUnlocalizedName(this.getRegistryName().toString().replace(':', '.'));
+        this.setTranslationKey(this.getRegistryName().toString().replace(':', '.'));
         this.setMaxStackSize(maxStack);
         this.setCreativeTab(VSBCreativeTabs.TAB_VSB);
     }

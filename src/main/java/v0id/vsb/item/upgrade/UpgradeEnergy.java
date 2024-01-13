@@ -32,7 +32,7 @@ public class UpgradeEnergy extends ItemSimple implements IUpgrade
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
     {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.addAll(Arrays.asList(I18n.format("vsb.txt.upgrade.energy." + stack.getItem().getRegistryName().getResourcePath().substring(15) + ".desc").split("\\|")));
+        tooltip.addAll(Arrays.asList(I18n.format("vsb.txt.upgrade.energy." + stack.getItem().getRegistryName().getPath().substring(15) + ".desc").split("\\|")));
     }
 
     @Override

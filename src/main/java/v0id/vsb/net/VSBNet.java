@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import v0id.api.vsb.capability.IVSBPlayer;
-import v0id.api.vsb.data.VSBRegistryNames;
+import v0id.vsb.Tags;
 import v0id.vsb.net.message.*;
 import v0id.vsb.util.EnumGuiType;
 
@@ -16,7 +16,7 @@ public class VSBNet
 
     public static void register()
     {
-        WRAPPER = NetworkRegistry.INSTANCE.newSimpleChannel(VSBRegistryNames.MODID);
+        WRAPPER = NetworkRegistry.INSTANCE.newSimpleChannel(Tags.MOD_ID);
         WRAPPER.registerMessage(OpenGUI.Handler.class, OpenGUI.class, 0, Side.CLIENT);
         WRAPPER.registerMessage(SwitchContextContainer.Handler.class, SwitchContextContainer.class, 1, Side.SERVER);
         WRAPPER.registerMessage(SyncPlayerData.Handler.class, SyncPlayerData.class, 2, Side.CLIENT);

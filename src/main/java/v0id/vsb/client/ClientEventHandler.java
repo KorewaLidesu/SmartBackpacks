@@ -22,15 +22,15 @@ import v0id.api.vsb.capability.IFilter;
 import v0id.api.vsb.capability.IVSBPlayer;
 import v0id.api.vsb.capability.VSBCaps;
 import v0id.api.vsb.data.VSBItems;
-import v0id.api.vsb.data.VSBRegistryNames;
 import v0id.api.vsb.data.VSBTextures;
+import v0id.vsb.Tags;
 import v0id.vsb.VSB;
 import v0id.vsb.capability.FilterRegex;
 import v0id.vsb.config.VSBCfg;
 import v0id.vsb.net.VSBNet;
 import v0id.vsb.util.VSBUtils;
 
-@Mod.EventBusSubscriber(modid = VSBRegistryNames.MODID, value = { Side.CLIENT })
+@Mod.EventBusSubscriber(modid = Tags.MOD_ID, value = { Side.CLIENT })
 public class ClientEventHandler
 {
     private static int lastHotbarSwappingSlot = -1;

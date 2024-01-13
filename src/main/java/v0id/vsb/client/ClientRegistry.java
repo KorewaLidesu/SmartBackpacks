@@ -18,14 +18,14 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.lwjgl.input.Keyboard;
 import v0id.api.vsb.capability.IBackpack;
 import v0id.api.vsb.data.VSBItems;
-import v0id.api.vsb.data.VSBRegistryNames;
+import v0id.vsb.Tags;
 import v0id.vsb.client.render.RenderLayerBackpack;
 import v0id.vsb.item.ItemBackpack;
 
 import java.util.Map;
 import java.util.function.Function;
 
-@Mod.EventBusSubscriber(modid = VSBRegistryNames.MODID, value = { Side.CLIENT })
+@Mod.EventBusSubscriber(modid = Tags.MOD_ID, value = { Side.CLIENT })
 public class ClientRegistry
 {
     public static KeyBinding key_openBackpack;

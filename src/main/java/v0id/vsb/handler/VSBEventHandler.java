@@ -34,6 +34,7 @@ import v0id.api.vsb.capability.VSBCaps;
 import v0id.api.vsb.data.VSBRegistryNames;
 import v0id.api.vsb.item.IBackpackWrapper;
 import v0id.api.vsb.item.IUpgradeWrapper;
+import v0id.vsb.Tags;
 import v0id.vsb.capability.Player;
 import v0id.vsb.config.VSBCfg;
 import v0id.vsb.container.ContainerBackpack;
@@ -48,7 +49,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Objects;
 
-@Mod.EventBusSubscriber(modid = VSBRegistryNames.MODID)
+@Mod.EventBusSubscriber(modid = Tags.MOD_ID)
 public class VSBEventHandler
 {
     public static boolean tmbCompatInitialized;

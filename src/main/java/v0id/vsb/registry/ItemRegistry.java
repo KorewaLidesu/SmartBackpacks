@@ -12,13 +12,14 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import v0id.api.vsb.data.VSBRegistryNames;
 import v0id.api.vsb.item.EnumBackpackType;
+import v0id.vsb.Tags;
 import v0id.vsb.config.VSBCfg;
 import v0id.vsb.item.ItemBackpack;
 import v0id.vsb.item.ItemSimple;
 import v0id.vsb.item.upgrade.*;
 import v0id.vsb.util.VSBUtils;
 
-@Mod.EventBusSubscriber(modid = VSBRegistryNames.MODID)
+@Mod.EventBusSubscriber(modid = Tags.MOD_ID)
 public class ItemRegistry
 {
     @SubscribeEvent

@@ -2,8 +2,9 @@ package v0id.api.vsb.data;
 
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import v0id.vsb.Tags;
 
-@GameRegistry.ObjectHolder(VSBRegistryNames.MODID)
+@GameRegistry.ObjectHolder(Tags.MOD_ID)
 public class VSBItems
 {
     @GameRegistry.ObjectHolder(VSBRegistryNames.itemBackpack)

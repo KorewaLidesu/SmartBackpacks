@@ -2,13 +2,12 @@ package v0id.api.vsb.data;
 
 import com.google.common.collect.Maps;
 import net.minecraft.util.ResourceLocation;
+import v0id.vsb.Tags;
 
 import java.util.Map;
 
 public class VSBRegistryNames
 {
-    public static final String MODID = "v0idssmartbackpacks";
-
     public static final String
         itemBackpack                                                                        = "backpack",
         itemReinforcedBackpack                                                              = "backpack_reinforced",
@@ -70,14 +69,14 @@ public class VSBRegistryNames
         {
             if (!cache.containsKey(name))
             {
-                cache.put(name, new ResourceLocation(MODID, name));
+                cache.put(name, new ResourceLocation(Tags.MOD_ID, name));
             }
 
             return cache.get(name);
         }
         else
         {
-            return new ResourceLocation(MODID, name);
+            return new ResourceLocation(Tags.MOD_ID, name);
         }
     }
 }

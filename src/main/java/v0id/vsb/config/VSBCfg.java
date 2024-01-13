@@ -6,8 +6,9 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import v0id.api.vsb.data.VSBRegistryNames;
+import v0id.vsb.Tags;
 
-@Config(modid = VSBRegistryNames.MODID)
+@Config(modid = Tags.MOD_ID)
 public class VSBCfg
 {
     @Config.RangeInt(min = 0)
@@ -76,15 +77,15 @@ public class VSBCfg
     @Config.RangeInt(min = 0, max = 18)
     public static int ultimateBackpackUpgradesSize = 18;
 
-    @Mod.EventBusSubscriber(modid = VSBRegistryNames.MODID)
+    @Mod.EventBusSubscriber(modid = Tags.MOD_ID)
     public static class ConfigHandler
     {
         @SubscribeEvent
         public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
         {
-            if (event.getModID().equalsIgnoreCase(VSBRegistryNames.MODID))
+            if (event.getModID().equalsIgnoreCase(Tags.MOD_ID))
             {
-                ConfigManager.sync(VSBRegistryNames.MODID, Config.Type.INSTANCE);
+                ConfigManager.sync(Tags.MOD_ID, Config.Type.INSTANCE);
             }
         }
     }

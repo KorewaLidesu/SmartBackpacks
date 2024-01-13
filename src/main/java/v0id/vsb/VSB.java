@@ -7,8 +7,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLFingerprintViolationEvent;
@@ -32,21 +30,16 @@ import v0id.vsb.net.VSBNet;
 import v0id.vsb.util.IProxy;
 
 import javax.annotation.Nullable;
-import java.lang.reflect.Method;
 import java.util.List;
 
-@Mod(modid = VSBRegistryNames.MODID, useMetadata = true, dependencies = "after:harvestcraft;after:tombmanygraves2api@[1.12-4.1.0,);after:tombmanygraves@[1.12-4.1.0,)", certificateFingerprint = "751ba7c2091ec5cc4cd1fcc6e9a4e9d5a2cace8d")
+@Mod(modid = Tags.MOD_ID, useMetadata = true, dependencies = "after:harvestcraft;after:tombmanygraves2api@[1.12.2-1.0.0,);after:tombmanygraves@[1.12-4.2.0,)")
 public class VSB
 {
     public static List<ILifecycleListener> listeners = Lists.newArrayList();
 
     @SidedProxy(clientSide = "v0id.vsb.client.ClientProxy", serverSide = "v0id.vsb.server.ServerProxy")
     public static IProxy proxy;
-    private static Logger modLogger = LogManager.getLogger(VSB.class);
-
-    static
-    {
-    }
+    private static final Logger modLogger = LogManager.getLogger(VSB.class);
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -124,20 +117,6 @@ public class VSB
     @Mod.EventHandler
     public void init(FMLInitializationEvent event)
     {
-        if (Loader.isModLoaded("tombmanygraves2api"))
-        {
-            try
-            {
-                Class<?> c = Class.forName("v0id.vsb.compat.TombManyGravesCompat");
-                Method m = c.getDeclaredMethod("register");
-                m.invoke(null);
-            }
-            catch (Exception ex)
-            {
-                FMLCommonHandler.instance().raiseException(ex, "VSB was unable to instantinate TombManyGraves compatibility patch!", false);
-            }
-        }
-
         listeners.forEach(l -> l.init(event));
     }
 
