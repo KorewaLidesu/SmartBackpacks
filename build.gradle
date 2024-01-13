@@ -300,16 +300,17 @@ if (propertyBool('spotless')) {
 
 tasks.register('generateMixinJson') {
     group 'cleanroom helpers'
+    def missingConfig = propertyStringList('mixin_configs').findAll(config -> !file("src/main/resources/mixins.${config}.json").exists())
     onlyIf {
         if (propertyBool('use_mixins') && propertyBool('generate_mixins_json')) {
             for (String mixinConfig : propertyStringList('mixin_configs')) {
-                return !file("src/main/resources/mixins.${mixinConfig}.json").exists()
+                return !missingConfig.empty
             }
         }
         return false
     }
     doLast {
-        for (String mixinConfig : propertyStringList('mixin_configs')) {
+        for (String mixinConfig : missingConfig) {
             def file = file("src/main/resources/mixins.${mixinConfig}.json")
             file << """{\n\t"package": "",\n\t"required": true,\n\t"refmap": "${mixin_refmap}",\n\t"target": "@env(DEFAULT)",\n\t"minVersion": "0.8.5",\n\t"compatibilityLevel": "JAVA_8",\n\t"mixins": [],\n\t"server": [],\n\t"client": []\n}"""
         }
