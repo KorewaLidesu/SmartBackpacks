@@ -19,6 +19,7 @@ import v0id.vsb.util.VSBUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class Backpack implements IBackpack
 {
@@ -45,8 +46,8 @@ public class Backpack implements IBackpack
 
     public Backpack(ItemStack owner, EnumBackpackType type)
     {
-        this.inventory = new NBTItemHandler(owner, type.getInventorySize());
-        this.upgrades = new NBTItemHandler(owner, type.getUpgradesSize());
+        this.inventory = new NBTItemHandler(owner, "inventory", type.getInventorySize());
+        this.upgrades = new NBTItemHandler(owner, "upgrades", type.getUpgradesSize());
         this.energyStorage = new EnergyStorageNBT(owner)
         {
             @Override
@@ -157,8 +158,8 @@ public class Backpack implements IBackpack
     @Override
     public void deserializeNBT(NBTTagCompound nbt)
     {
-        this.inventory.deserializeNBT(nbt.getCompoundTag("inventory"));
-        this.upgrades.deserializeNBT(nbt.getCompoundTag("upgrades"));
+        this.inventory.deserializeNBT(nbt);
+        this.upgrades.deserializeNBT(nbt);
         this.color = nbt.getInteger("color");
         this.maxEnergy = nbt.getInteger("maxEnergy");
         this.energyStorage.extractEnergy(Integer.MAX_VALUE, false);
@@ -324,13 +325,15 @@ public class Backpack implements IBackpack
     private class NBTItemHandler implements IItemHandler, IItemHandlerModifiable, INBTSerializable<NBTTagCompound>
     {
         private final ItemStack stack;
+        private final String nbtName;
         private final int slots;
         private final ItemStackHandler inventory;
         private boolean isInitialized;
 
-        private NBTItemHandler(ItemStack stack, int slots)
+        private NBTItemHandler(ItemStack stack, String nbtName, int slots)
         {
             this.stack = stack;
+            this.nbtName = Objects.requireNonNull(nbtName, "ItemHandler can't be null. Please report this to KorewaLidesu.");
             this.slots = slots;
             this.inventory = new ItemStackHandler(slots)
             {
@@ -342,10 +345,15 @@ public class Backpack implements IBackpack
                 }
             };
 
-            if (stack.hasTagCompound() && stack.getTagCompound().hasKey("vsb:nbtItemHandler"))
+            // A reminder of how mis-usage of NBT can cause a lot of trouble
+            if (this.stack.hasTagCompound() && this.stack.getTagCompound().hasKey(this.getNbtName()))
             {
-                this.inventory.deserializeNBT(stack.getTagCompound().getCompoundTag("vsb:nbtItemHandler"));
+                this.inventory.deserializeNBT(this.stack.getTagCompound().getCompoundTag(this.getNbtName()));
             }
+        }
+
+        private String getNbtName() {
+            return "vsb:" + nbtName;
         }
 
         @Override
@@ -361,9 +369,9 @@ public class Backpack implements IBackpack
             if (!this.isInitialized)
             {
                 this.isInitialized = true;
-                if (this.stack.hasTagCompound() && this.stack.getTagCompound().hasKey("vsb:nbtItemHandler", Constants.NBT.TAG_COMPOUND))
+                if (this.stack.hasTagCompound() && this.stack.getTagCompound().hasKey(this.getNbtName(), Constants.NBT.TAG_COMPOUND))
                 {
-                    this.inventory.deserializeNBT(this.stack.getTagCompound().getCompoundTag("vsb:nbtItemHandler"));
+                    this.inventory.deserializeNBT(this.stack.getTagCompound().getCompoundTag(this.getNbtName()));
                 }
             }
 
@@ -409,7 +417,7 @@ public class Backpack implements IBackpack
                 this.stack.setTagCompound(new NBTTagCompound());
             }
 
-            this.stack.getTagCompound().setTag("vsb:nbtItemHandler", this.inventory.serializeNBT());
+            this.stack.getTagCompound().setTag(this.getNbtName(), this.inventory.serializeNBT());
         }
 
         @Override
@@ -421,15 +429,15 @@ public class Backpack implements IBackpack
         @Override
         public void deserializeNBT(NBTTagCompound nbt)
         {
-            if (this.stack.hasTagCompound() && this.stack.getTagCompound().hasKey("vsb:nbtItemHandler", Constants.NBT.TAG_COMPOUND))
+            if (this.stack.hasTagCompound() && this.stack.getTagCompound().hasKey(this.getNbtName(), Constants.NBT.TAG_COMPOUND))
             {
-                this.inventory.deserializeNBT(this.stack.getTagCompound().getCompoundTag("vsb:nbtItemHandler"));
+                this.inventory.deserializeNBT(this.stack.getTagCompound().getCompoundTag(this.getNbtName()));
             }
             else
             {
-                if (nbt.hasKey("vsb:nbtItemHandler"))
+                if (nbt.hasKey(this.getNbtName()))
                 {
-                    this.inventory.deserializeNBT(nbt.getCompoundTag("vsb:nbtItemHandler"));
+                    this.inventory.deserializeNBT(nbt.getCompoundTag(this.getNbtName()));
                 }
                 else
                 {
