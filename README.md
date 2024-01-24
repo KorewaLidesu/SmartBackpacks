@@ -1,3 +1,5 @@
+This project inherit from original mod and using TemplateDevEnv as mod development environment standard.
+
 ## TemplateDevEnv
 
 Template workspace for modding Minecraft 1.12.2. Licensed under MIT, it is made for public use.
