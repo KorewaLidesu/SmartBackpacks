@@ -147,8 +147,8 @@ public class Backpack implements IBackpack
     public NBTTagCompound serializeNBT()
     {
         NBTTagCompound ret = new NBTTagCompound();
-        ret.setTag("inventory", this.inventory.serializeNBT());
-        ret.setTag("upgrades", this.upgrades.serializeNBT());
+        ret.setTag(this.inventory.getNbtName(), this.inventory.serializeNBT());
+        ret.setTag(this.upgrades.getNbtName(), this.upgrades.serializeNBT());
         ret.setInteger("color", this.color);
         ret.setInteger("maxEnergy", this.maxEnergy);
         ret.setInteger("energy", this.energyStorage.getEnergyStored());
@@ -158,8 +158,8 @@ public class Backpack implements IBackpack
     @Override
     public void deserializeNBT(NBTTagCompound nbt)
     {
-        this.inventory.deserializeNBT(nbt);
-        this.upgrades.deserializeNBT(nbt);
+        this.inventory.deserializeNBT(nbt.getCompoundTag(this.inventory.getNbtName()));
+        this.upgrades.deserializeNBT(nbt.getCompoundTag(this.upgrades.getNbtName()));
         this.color = nbt.getInteger("color");
         this.maxEnergy = nbt.getInteger("maxEnergy");
         this.energyStorage.extractEnergy(Integer.MAX_VALUE, false);
@@ -171,7 +171,7 @@ public class Backpack implements IBackpack
     {
         NBTTagCompound tag = new NBTTagCompound();
         tag.setInteger("color", this.color);
-        tag.setTag("upgrades", this.upgrades.serializeNBT());
+        tag.setTag(this.upgrades.getNbtName(), this.upgrades.serializeNBT());
         tag.setInteger("energyMax", this.maxEnergy);
         tag.setInteger("energy", this.energyStorage.getEnergyStored());
         return tag;
@@ -181,7 +181,7 @@ public class Backpack implements IBackpack
     public void deserializeSync(NBTTagCompound tag)
     {
         this.color = tag.getInteger("color");
-        this.upgrades.deserializeNBT(tag.getCompoundTag("upgrades"));
+        this.upgrades.deserializeNBT(tag.getCompoundTag(this.upgrades.getNbtName()));
         this.maxEnergy = tag.getInteger("energyMax");
         this.energyStorage.extractEnergy(Integer.MAX_VALUE, false);
         this.energyStorage.receiveEnergy(tag.getInteger("energy"), false);
