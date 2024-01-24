@@ -1,5 +1,9 @@
 This project inherit from original mod and using TemplateDevEnv as mod development environment standard.
 
+## Addendum
+- Backpack don't have handler for shift click item movement (only happen with increase stack size, insert new stack will not trigger this). This lead to backpack reverse its inventory if leave and rejoin early, before markDirty kicked in. Similar issue to LP.
+- Code base is horrendous ~~not gonna lies~~, it is good to handle alot of case... But try digging the code base always make me feel uncomfortable. Maybe it just me schizo, but if you want to try fix any issue from this mods, better just use this as base code and rewrite from scratch instead.
+
 ## TemplateDevEnv
 
 Template workspace for modding Minecraft 1.12.2. Licensed under MIT, it is made for public use.
